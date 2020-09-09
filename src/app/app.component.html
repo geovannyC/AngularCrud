@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1 class="text-center">Listas Categorias</h1>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">cod_categoria</th>
+            <th class="text-center">nombre</th>
+            <th class="text-center">Descripcion</th>
+
+            <th class="text-center">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.cod_categoria }}</td>
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.descripcion}}</td>
+            
+
+            <td>
+              <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(user)">Edit</button>
+
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-success" (click)="showAddUserForm()">Añadir Categoria</button>
+
+      <div class="mt-4">
+        <form *ngIf="userForm">
+          <h2>Añadir Categoria</h2>
+          <p>Cod_Categoria<input type="text" name="cod_categoria" [(ngModel)]="newUser.cod_categoria" /></p>
+          <p>Nombre <input type="text" name="nombre" [(ngModel)]="newUser.nombre" /></p>
+          <p>Descripcion<input type="text" name="nombre" [(ngModel)]="newUser.descripcion" /></p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="saveUser(newUser)">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelNewUser()">Cancel</button>
+          </p>
+        </form>
+
+        <form *ngIf="editUserForm">
+          <h2>Edit User Details</h2>
+          <p>First Name: <input type="text" name="cod_categoria" [(ngModel)]="editedUser.cod_categoria" /></p>
+          <p>Last Name: <input type="text" name="nombre" [(ngModel)]="editedUser.nombre" /></p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="updateUser()">Enviar</button>
+            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancelar</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
