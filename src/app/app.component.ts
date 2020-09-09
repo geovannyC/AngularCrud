@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { UserService } from './services/user.service';
-
+import {Observable} from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
-  users: User[];
+  
+  users: any = {};
   userForm: boolean;
   isNewUser: boolean;
   newUser: any = {};
@@ -19,9 +19,17 @@ export class AppComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.users = this.getUsers();
-  }
+    // this.users = this.getUsers();
 
+    this.getFoods()
+  }
+  getFoods() {
+      this.userService.getData().subscribe(
+         data => { this.users = data},
+         err => console.error(err),
+         () => console.log('done loading foods')
+        );
+     }
   getUsers(): User[] {
     return this.userService.getUsersFromData();
   }
@@ -53,11 +61,6 @@ export class AppComponent implements OnInit {
     this.userForm = false;
   }
 
-  updateUser() {
-    this.userService.updateUser(this.editedUser);
-    this.editUserForm = false;
-    this.editedUser = {};
-  }
 
   removeUser(user: User) {
     this.userService.deleteUser(user);

@@ -24,7 +24,7 @@
             <td>
               <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(user)">Edit</button>
 
-              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user)">Delete</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -43,15 +43,7 @@
           </p>
         </form>
 
-        <form *ngIf="editUserForm">
-          <h2>Edit User Details</h2>
-          <p>First Name: <input type="text" name="cod_categoria" [(ngModel)]="editedUser.cod_categoria" /></p>
-          <p>Last Name: <input type="text" name="nombre" [(ngModel)]="editedUser.nombre" /></p>
-          <p>
-            <button type="button" class="btn btn-primary mr-2" (click)="updateUser()">Enviar</button>
-            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancelar</button>
-          </p>
-        </form>
+        
       </div>
     </div>
   </div>
