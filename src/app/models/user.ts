@@ -1,1 +1,1 @@
-export interface User {id: number, cod_categoria:String,nombre:String,descripcion:String,fechaCreacion:String}
+export interface User {_id: number, cod_categoria:String,nombre:String,descripcion:String,fechaCreacion:String}

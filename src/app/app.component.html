@@ -9,22 +9,19 @@
             <th class="text-center">cod_categoria</th>
             <th class="text-center">nombre</th>
             <th class="text-center">Descripcion</th>
-
             <th class="text-center">&nbsp;</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of users">
-            <td>{{ user.id }}</td>
+            <td #id>{{ user._id }}</td >
             <td>{{ user.cod_categoria }}</td>
             <td>{{ user.nombre }}</td>
             <td>{{ user.descripcion}}</td>
-            
-
             <td>
-              <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(user)">Edit</button>
 
-              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user.id)">Delete</button>
+
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user._id)">Delete</button>
             </td>
           </tr>
         </tbody>

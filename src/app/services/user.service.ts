@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
 
-  private upersons: User[] = [
-    {id: 1, cod_categoria:"String",nombre:"String",descripcion:"String",fechaCreacion:"String"},
-   
-  ];
+  private upersons: User[];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -19,18 +17,16 @@ export class UserService {
   getUsersFromData(): User[] {
     return this.upersons;
   }
-  getData(){
+  getData():  Observable<any>{
     return this.http.get(this.url+'/verCategorias', this.httpOptions)
   }
 
   addUser(user: User) {
-    user.id = this.upersons.length + 1;
-    this.http.post(this.url+'/añadirCategoria',user, this.httpOptions);
-
+    console.log('hola add')
+    return this.http.post(this.url+'/addcategoria',user, this.httpOptions)
   }
-
   deleteUser(id: any) {
-    this.http.get(this.url+ `/deleteUser/${id}`, this.httpOptions)
+    console.log(id)
+    return this.http.get(this.url+ `/deleteUser/${id}`, this.httpOptions)
   }
-
 }

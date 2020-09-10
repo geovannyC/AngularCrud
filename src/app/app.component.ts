@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
   users: any = {};
   userForm: boolean;
   isNewUser: boolean;
@@ -34,14 +33,6 @@ export class AppComponent implements OnInit {
     return this.userService.getUsersFromData();
   }
 
-  showEditUserForm(user: User) {
-    if (!user) {
-      this.userForm = false;
-      return;
-    }
-    this.editUserForm = true;
-    this.editedUser = user;
-  }
 
   showAddUserForm() {
     // resets form if edited user
@@ -53,24 +44,36 @@ export class AppComponent implements OnInit {
 
   }
 
-  saveUser(user: User) {
-    if (this.isNewUser) {
-      // add a new user
-      this.userService.addUser(user);
-    }
+  saveUser(user: User): boolean {
+      this.userService.addUser(user).subscribe(
+        res=>{
+          if(res==='creadoexitosamente'){
+            alert('creado exitosamente')
+            this.getFoods()
+          }else{
+            alert('error en el servidor')
+          }
+          
+        
+        }
+      )
+
     this.userForm = false;
+    return true 
   }
 
 
-  removeUser(user: User) {
-    this.userService.deleteUser(user);
+  removeUser(user) {
+    
+    this.userService.deleteUser(user).subscribe((data)=>{
+      if(data==='eliminado exitosamente'){
+        alert('eliminado exitosamente')
+        this.getFoods()
+      }else{
+        alert('error en el servidor')
+      }
+    })
   }
-
-  cancelEdits() {
-    this.editedUser = {};
-    this.editUserForm = false;
-  }
-
   cancelNewUser() {
     this.newUser = {};
     this.userForm = false;
