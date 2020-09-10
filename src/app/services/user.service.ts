@@ -8,15 +8,12 @@ import { Observable } from 'rxjs';
 
 export class UserService {
 
-  private upersons: User[];
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
   constructor(private http: HttpClient) { }
   url = 'http://localhost:3000'
-  getUsersFromData(): User[] {
-    return this.upersons;
-  }
   getData():  Observable<any>{
     return this.http.get(this.url+'/verCategorias', this.httpOptions)
   }

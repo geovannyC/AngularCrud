@@ -8,7 +8,9 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  users: any = {};
+  alert: boolean = false;
+  alertDelete: boolean = false;
+  users: any = [];
   userForm: boolean;
   isNewUser: boolean;
   newUser: any = {};
@@ -22,16 +24,22 @@ export class AppComponent implements OnInit {
 
     this.getFoods()
   }
+  switchAlert(){
+    this.alert?this.alert=false:this.alert=true
+  }
+  switchAlertDeleted(){
+    this.alertDelete?this.alertDelete=false:this.alertDelete=true
+  }
   getFoods() {
       this.userService.getData().subscribe(
-         data => { this.users = data},
+         data => { 
+          console.log(data) 
+          this.users = data},
          err => console.error(err),
          () => console.log('done loading foods')
         );
+      
      }
-  getUsers(): User[] {
-    return this.userService.getUsersFromData();
-  }
 
 
   showAddUserForm() {
@@ -48,8 +56,9 @@ export class AppComponent implements OnInit {
       this.userService.addUser(user).subscribe(
         res=>{
           if(res==='creadoexitosamente'){
-            alert('creado exitosamente')
+            
             this.getFoods()
+            this.switchAlert()
           }else{
             alert('error en el servidor')
           }
@@ -67,7 +76,7 @@ export class AppComponent implements OnInit {
     
     this.userService.deleteUser(user).subscribe((data)=>{
       if(data==='eliminado exitosamente'){
-        alert('eliminado exitosamente')
+        this.switchAlertDeleted()
         this.getFoods()
       }else{
         alert('error en el servidor')
