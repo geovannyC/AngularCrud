@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
     )
   }
   getSelectedValue(value: any) {
+    console.log(value)
     this.handleChangeCategoria=value
     this.showcategoria(value)
   }

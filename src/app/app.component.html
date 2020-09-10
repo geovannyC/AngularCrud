@@ -81,7 +81,7 @@
           <tbody>
             <ng-template [ngIf]="subcategorias !== 'no hay data'">
               <tr *ngFor="let user of subcategorias">
-                <td>{{ user.cod_categoria }}</td>
+                <td>{{ user._id }}</td>
                 <td>{{ user.nombre }}</td>
                 <td>{{ user.descripcion }}</td>
                 <td>{{ user.createdAt }}</td>
@@ -105,7 +105,7 @@
       </ng-template>
       <div class="mt-4">
         <form *ngIf="userForm">
-          <h2>Añadir Categoria</h2>
+          <h2>Añadir Sub Categorias</h2>
 
           <p>
             Nombre
