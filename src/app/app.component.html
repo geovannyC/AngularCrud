@@ -2,81 +2,106 @@
   <div class="row">
     <div class="col-md-12 mt-4">
       <h1 class="text-center">Listas Categorias</h1>
-      <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+      <div
+        *ngIf="alert"
+        class="alert alert-success alert-dismissible fade show"
+        role="alert"
+      >
         <strong>Actualizado éxitosamente!</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="switchAlert()">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          (click)="switchAlert()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div *ngIf="alertDelete" class="alert alert-warning  alert-dismissible fade show" role="alert">
+      <div
+        *ngIf="alertDelete"
+        class="alert alert-warning alert-dismissible fade show"
+        role="alert"
+      >
         <strong>Eliminado éxitosamente!</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="switchAlertDeleted()">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          (click)="switchAlertDeleted()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <ng-template [ngIf]="users !== 'no hay data'">
-      <select  class="browser-default custom-select" (ngModelChange)=getSelectedValue($event) [(ngModel)]="selectedValue">
-        
-        
-        <option value="1" *ngFor="let user of users" [value]="user._id" >{{user.descripcion}}</option>
-   
-          
-      </select>
-    </ng-template>
+        <select
+          class="browser-default custom-select"
+          (ngModelChange)="getSelectedValue($event)"
+          [(ngModel)]="selectedValue"
+        >
+          <option value="1" *ngFor="let user of users" [value]="user._id">
+            {{ user.descripcion }}
+          </option>
+        </select>
+      </ng-template>
       <div class="md-form">
         <label for="form1" class="">Descripción</label>
-        <input mdbInput type="text" id="form1" class="form-control" aria-label="Descripción"  [(ngModel)]="descripcionCategoria">
+        <input
+          mdbInput
+          type="text"
+          id="form1"
+          class="form-control"
+          aria-label="Descripción"
+          [(ngModel)]="descripcionCategoria"
+        />
         <button class="btn btn-success" (click)="saveUser()">
           Añadir Categoria
         </button>
-    <br>
-    <ng-template [ngIf]="handleChangeCategoria" >
-      <button class="btn btn-warning mt-1" (click)="removeCategoria()">
-        Borrar Categoria
-      </button>
-    </ng-template>
-    
-      
-        
-      </div>
-      <ng-template [ngIf]="handleChangeCategoria" >
-      <table class="table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-            <th class="text-center">cod_categoria</th>
-            <th class="text-center">nombre</th>
-            <th class="text-center">Descripcion</th>
-            <th class="text-center">ID</th>
-
-            <th class="text-center">&nbsp;</th>
-          </tr>
-        </thead>
-
-        <tbody>
-      
-          <ng-template [ngIf]="subcategorias !== 'no hay data'">
-          <tr *ngFor="let user of subcategorias">
-            <td>{{ user.cod_categoria }}</td>
-            <td>{{ user.nombre }}</td>
-            <td>{{ user.descripcion }}</td>
-            <td>{{ user.createdAt }}</td>
-            <td>
-              <button
-                type="button"
-                class="btn btn-danger btn-sm"
-                (click)="removeUser(user._id)"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
+        <br />
+        <ng-template [ngIf]="handleChangeCategoria">
+          <button class="btn btn-warning mt-1" (click)="removeCategoria()">
+            Borrar Categoria
+          </button>
         </ng-template>
-        </tbody>
-      </table>
+      </div>
+      <ng-template [ngIf]="handleChangeCategoria">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">cod_categoria</th>
+              <th class="text-center">nombre</th>
+              <th class="text-center">Descripcion</th>
+              <th class="text-center">Fecha de creación</th>
 
-      <button class="btn btn-success" (click)="showAddUserForm()">
-        Añadir Categoria
-      </button>
+              <th class="text-center">&nbsp;</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <ng-template [ngIf]="subcategorias !== 'no hay data'">
+              <tr *ngFor="let user of subcategorias">
+                <td>{{ user.cod_categoria }}</td>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.descripcion }}</td>
+                <td>{{ user.createdAt }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    (click)="removeUser(user._id)"
+                  >
+                    Borrar
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+
+        <button class="btn btn-success" (click)="showAddUserForm()">
+          Añadir Categoria
+        </button>
       </ng-template>
       <div class="mt-4">
         <form *ngIf="userForm">
@@ -99,7 +124,7 @@
               class="btn btn-primary mr-2"
               (click)="saveSubCategoria()"
             >
-              Submit
+              Enviar
             </button>
             <button
               type="button"
@@ -113,6 +138,4 @@
       </div>
     </div>
   </div>
-  
 </div>
-
