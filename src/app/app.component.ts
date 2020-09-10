@@ -16,7 +16,10 @@ export class AppComponent implements OnInit {
   newUser: any = {};
   editUserForm: boolean;
   editedUser: any = {};
-
+  descripcionCategoria: string;
+  handleChangeCategoria: string;
+  selectedValue = '1';
+  subcategorias: any = [];
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -51,9 +54,23 @@ export class AppComponent implements OnInit {
     this.isNewUser = true;
 
   }
-
-  saveUser(user: User): boolean {
-      this.userService.addUser(user).subscribe(
+  showcategoria(idCategoria){
+ 
+    this.userService.getDataSubCategorias(idCategoria).subscribe(
+      
+      res=>{
+        console.log(res)
+        this.subcategorias=res
+      }
+    )
+  }
+  getSelectedValue(value: any) {
+    this.handleChangeCategoria=value
+    this.showcategoria(value)
+  }
+  saveUser(): boolean {
+    
+      this.userService.addUser(this.descripcionCategoria).subscribe(
         res=>{
           if(res==='creadoexitosamente'){
             
@@ -70,14 +87,46 @@ export class AppComponent implements OnInit {
     this.userForm = false;
     return true 
   }
+  saveSubCategoria(): boolean {
+
+    this.userService.addSubCategoria(this.newUser, this.handleChangeCategoria).subscribe(
+      res=>{
+        if(res==='creadoexitosamente'){
+          this.showcategoria(this.handleChangeCategoria)
+          
+          this.switchAlert()
+        }else{
+          alert('error en el servidor')
+        }
+        
+      
+      }
+    )
+
+  this.userForm = false;
+  return true 
+}
 
 
   removeUser(user) {
     
-    this.userService.deleteUser(user).subscribe((data)=>{
+    this.userService.deleteSubCategoria(user).subscribe((data)=>{
+      if(data==='eliminado exitosamente'){
+        this.switchAlertDeleted()
+        this.showcategoria(this.handleChangeCategoria)
+      }else{
+        alert('error en el servidor')
+      }
+    })
+  }
+  removeCategoria() {
+    
+    this.userService.deleteUser(this.handleChangeCategoria).subscribe((data)=>{
       if(data==='eliminado exitosamente'){
         this.switchAlertDeleted()
         this.getFoods()
+        this.handleChangeCategoria=''
+
       }else{
         alert('error en el servidor')
       }

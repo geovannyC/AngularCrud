@@ -14,25 +14,52 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <ng-template [ngIf]="users !== 'no hay data'">
+      <select  class="browser-default custom-select" (ngModelChange)=getSelectedValue($event) [(ngModel)]="selectedValue">
+        
+        
+        <option value="1" *ngFor="let user of users" [value]="user._id" >{{user.descripcion}}</option>
+   
+          
+      </select>
+    </ng-template>
+      <div class="md-form">
+        <label for="form1" class="">Descripción</label>
+        <input mdbInput type="text" id="form1" class="form-control" aria-label="Descripción"  [(ngModel)]="descripcionCategoria">
+        <button class="btn btn-success" (click)="saveUser()">
+          Añadir Categoria
+        </button>
+    <br>
+    <ng-template [ngIf]="handleChangeCategoria" >
+      <button class="btn btn-warning mt-1" (click)="removeCategoria()">
+        Borrar Categoria
+      </button>
+    </ng-template>
+    
+      
+        
+      </div>
+      <ng-template [ngIf]="handleChangeCategoria" >
       <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
-            <th class="text-center">ID</th>
             <th class="text-center">cod_categoria</th>
             <th class="text-center">nombre</th>
             <th class="text-center">Descripcion</th>
+            <th class="text-center">ID</th>
+
             <th class="text-center">&nbsp;</th>
           </tr>
         </thead>
 
         <tbody>
-         <ng-template [ngIf]="users !== 'no hay data'">
-         
-          <tr *ngFor="let user of users">
-            <td #id>{{ user._id }}</td>
+      
+          <ng-template [ngIf]="subcategorias !== 'no hay data'">
+          <tr *ngFor="let user of subcategorias">
             <td>{{ user.cod_categoria }}</td>
             <td>{{ user.nombre }}</td>
             <td>{{ user.descripcion }}</td>
+            <td>{{ user.createdAt }}</td>
             <td>
               <button
                 type="button"
@@ -46,20 +73,15 @@
         </ng-template>
         </tbody>
       </table>
+
       <button class="btn btn-success" (click)="showAddUserForm()">
         Añadir Categoria
       </button>
-
+      </ng-template>
       <div class="mt-4">
         <form *ngIf="userForm">
           <h2>Añadir Categoria</h2>
-          <p>
-            Cod_Categoria<input
-              type="text"
-              name="cod_categoria"
-              [(ngModel)]="newUser.cod_categoria"
-            />
-          </p>
+
           <p>
             Nombre
             <input type="text" name="nombre" [(ngModel)]="newUser.nombre" />
@@ -75,7 +97,7 @@
             <button
               type="button"
               class="btn btn-primary mr-2"
-              (click)="saveUser(newUser)"
+              (click)="saveSubCategoria()"
             >
               Submit
             </button>

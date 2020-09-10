@@ -17,13 +17,27 @@ export class UserService {
   getData():  Observable<any>{
     return this.http.get(this.url+'/verCategorias', this.httpOptions)
   }
+  getDataSubCategorias(id):  Observable<any>{
+    return this.http.get(this.url+`/versubcategorias/${id}`, this.httpOptions)
+  }
 
-  addUser(user: User) {
-    console.log('hola add')
-    return this.http.post(this.url+'/addcategoria',user, this.httpOptions)
+  addUser(descripcion: string) {
+    const data = {
+      descripcion: descripcion
+    }
+    console.log(data)
+    return this.http.post(this.url+'/addcategoria',JSON.stringify(data), this.httpOptions)
+  }
+  addSubCategoria(subcategoria, id){
+    return this.http.post(this.url+`/addsubcategoria/${id}`,JSON.stringify(subcategoria), this.httpOptions)
+
   }
   deleteUser(id: any) {
     console.log(id)
-    return this.http.get(this.url+ `/deleteUser/${id}`, this.httpOptions)
+    return this.http.get(this.url+ `/deletecategoria/${id}`, this.httpOptions)
+  }
+  deleteSubCategoria(id: any) {
+    console.log(id)
+    return this.http.get(this.url+ `/deletesubcategoria/${id}`, this.httpOptions)
   }
 }
